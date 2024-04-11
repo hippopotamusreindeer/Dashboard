@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Workbench' rel='stylesheet'>
+    <style>
+        .WeatherContainer {{
+            width: 800px;
+            border: 2px solid black;
+            background-color: #CDCFD9;
+            font-family: 'Workbench';
+            font-size: 22px;
+            padding: 10px;
+            margin-left: 10px; 
+            position: relative;
+        }}
+        .WeatherMaxMin {{
+            display: flex;
+            justify-content: space-around; 
+            
+        }}
+        #weatherChart {{
+            margin-bottom: 5px;
+        }}
+        .WeatherValues {{
+            display: flex;
+            justify-content: space-around;
+        }}
+        .WeatherValues div {{
+            width: 30%;
+        }}
+        .container-head {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            height: 40px;
+        }}
+        #sunIcon, #umbrellaIcon {{
+            display: none;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }}
+        #jacketIcon, #pulloverIcon, #tshirtIcon {{
+            display: none;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }}
+    </style>
+</head>
+<body>
+
+<div class="WeatherContainer">
+<div class="container-head">
+    <div>
+        <img src="../static/sun.png" id="sunIcon" alt="Sun Icon" width="50">
+        <img src="../static/umberella.png" id="umbrellaIcon" alt="Umbrella Icon" width="50">
+        <img src="../static/jacket.png" id="jacketIcon" alt="Jacket Icon" width="50">
+        <img src="../static/pullover.png" id="pulloverIcon" alt="Pullover Icon" width="50">
+        <img src="../static/tshirt.png" id="tshirtIcon" alt="T-Shirt Icon" width="50">
+    </div>
+    <div>
+        <p align="center">Wetter Hannover</p>
+    </div>
+    <div>
+    </div>
+</div>
+    <canvas id="weatherChart" width="800" height="400"></canvas>
+    <div class="WeatherValues">
+        <div>
+            <p>Temperatur: {current_temp} °C</p>
+        </div>
+        <div>
+            <p>Wind: {current_wind} m/s</p>
+        </div>
+        <div>
+            <p>Regen: {current_precip} mm</p>
+        </div>
+    </div>
+    <div class="WeatherMaxMin"> 
+        <div>
+            <p> Temp. Max (24h): {max_temp_first_third} °C </p>
+        </div>
+        <div>
+            <p> Temp. Min (24h): {min_temp_first_third} °C </p>
+        </div>
+    </div>
+</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {{
+            var ctx = document.getElementById('weatherChart').getContext('2d');
+
+            var timeLabels = {time_data}; 
+            var temperatureData = {temperature_list}; 
+            var windData = {wind_list}; 
+            var precipData = {precip_list}; 
+
+            var myChart = new Chart(ctx, {{
+                type: 'line',
+                data: {{
+                    labels: timeLabels,
+                    datasets: [{{
+                        label: 'Temperatur',
+                        data: temperatureData,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 3
+                    }},
+                    {{
+                        label: 'Windgeschwindigkeit',
+                        data: windData,
+                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        borderWidth: 3
+                    }},
+                    {{
+                        label: 'Niederschlag',
+                        data: precipData,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 3
+                    }}]
+                }},
+                options: {{
+                    scales: {{
+                        y: {{
+                            beginAtZero: true
+                        }}
+                    }}
+                }}
+            }});
+        }});
+        document.addEventListener('DOMContentLoaded', function () {{
+        var currentPrecip = {current_precip}; // Assuming current_precip contains the precipitation value
+        var currentTemp = {current_temp};
+
+        // Get the sun and umbrella icons
+        var sunIcon = document.getElementById('sunIcon');
+        var umbrellaIcon = document.getElementById('umbrellaIcon');
+        var jacketIcon = document.getElementById('jacketIcon');
+        var pulloverIcon = document.getElementById('pulloverIcon');
+        var tshirtIcon = document.getElementById('tshirtIcon');
+
+        // Show the appropriate icon based on the Temperature value
+        if (currentTemp >= 15 && currentTemp <= 20) {{
+            pulloverIcon.style.display = 'inline-block';
+            tshirtIcon.style.display = 'none'; // Hide the others
+            jacketIcon.style.display = 'none';
+        }}
+        else if (currentTemp > 20) {{
+            tshirtIcon.style.display = 'inline-block'; 
+            pulloverIcon.style.display = 'none'; // Hide the others
+            jacketIcon.style.display = 'none';
+        }} 
+        else {{
+            jacketIcon.style.display = 'inline-block';
+            pulloverIcon.style.display = 'none'; // Hide the others
+            tshirtIcon.style.display = 'none';
+        }}
+
+            // Show the appropriate icon based on the precipitation value
+            if (currentPrecip < 0.1) {{
+                sunIcon.style.display = 'inline-block';
+            }} else {{
+                umbrellaIcon.style.display = 'inline-block';
+            }}
+        }});
+    </script>
+    <div class="main-container">
+        {% for article in articles %}
+            <div class="article-container">
+                <h2>{{ article['title'] }}</h2>
+                <p>Category: {{ article['category'] }}</p>
+                <p>{{ article['description'] }}</p>
+                <a href="{{ article['read_more_link'] }}" target="_blank">Mehr</a>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

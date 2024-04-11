@@ -1,0 +1,13 @@
+<table>
+<thead>
+<tr><th>Abfahrt Schünemannplatz              </th><th>Dauer und Umstiege                  </th></tr>
+</thead>
+<tbody>
+<tr><td>Abfahrt Linie   7:   14:09 +0 Minuten</td><td>Dauer: 44  Minuten; 0:44 Umstieg: 1 </td></tr>
+<tr><td>Abfahrt Linie   3:   14:13 +0 Minuten</td><td>Dauer: 40  Minuten; 0:40 Umstiege: 2</td></tr>
+<tr><td>Abfahrt Linie   7:   14:19 +0 Minuten</td><td>Dauer: 44  Minuten; 0:44 Umstieg: 1 </td></tr>
+<tr><td>Abfahrt Linie   3:   14:23 +0 Minuten</td><td>Dauer: 40  Minuten; 0:40 Umstiege: 2</td></tr>
+<tr><td>Abfahrt Linie   7:   14:29 +0 Minuten</td><td>Dauer: 44  Minuten; 0:44 Umstieg: 1 </td></tr>
+<tr><td>Abfahrt Linie   3:   14:33 +0 Minuten</td><td>Dauer: 40  Minuten; 0:40 Umstiege: 2</td></tr>
+</tbody>
+</table>

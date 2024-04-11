@@ -1,0 +1,3 @@
+Client-ID: 6f22d8fd50c42e9a21837183fa18fb12
+
+Client Secret API-Key: b37592828e25921d26053545266d5ea2
